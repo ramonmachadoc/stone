@@ -1,0 +1,22 @@
+db:
+   image: postgres
+   restart: always
+   container_name: db
+   volumes:
+     - database:/var/lib/postgresql/data
+   expose:
+     - '5432'
+   environment:
+   - POSTGRES_USER:'postgres'
+   - POSTGRES_PASSWORD:'postgres'
+   - POSTGRES_DB:'stone_api_repo'
+
+app:
+  build: .
+  container_name: stone_api
+  volumes:
+     - ./stone
+  ports:
+     - '8181:8181'
+  links:
+     - db
